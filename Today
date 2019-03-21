@@ -1,0 +1,151 @@
+CREATE TABLE EMPLOYEE
+( Fname VARCHAR(15) NOT NULL,
+Minit CHAR,
+Lname VARCHAR(15) NOT NULL,
+Ssn CHAR(9) NOT NULL,
+Bdate DATE,
+Address VARCHAR(30),
+Sex CHAR,
+Salary DECIMAL(10,2),
+Super_ssn CHAR(9),
+PRIMARY KEY (Ssn),
+FOREIGN KEY (Super_ssn) REFERENCES EMPLOYEE(Ssn) );
+
+CREATE TABLE DEPARTMENT
+( Dname VARCHAR(15) NOT NULL,
+Dnumber INT NOT NULL,
+Mgr_ssn CHAR(9) NOT NULL,
+Mgr_start_date DATE,
+PRIMARY KEY (Dnumber),
+UNIQUE (Dname),
+FOREIGN KEY (Mgr_ssn) REFERENCES EMPLOYEE(Ssn) );
+
+alter table employee add  Dno int REFERENCES DEPARTMENT(Dnumber) ;
+
+CREATE TABLE DEPT_LOCATIONS
+( Dnumber INT NOT NULL,
+Dlocation VARCHAR(15) NOT NULL,
+PRIMARY KEY (Dnumber, Dlocation),
+FOREIGN KEY (Dnumber) REFERENCES DEPARTMENT(Dnumber) );
+
+CREATE TABLE PROJECT
+( Pname VARCHAR(15) NOT NULL,
+Pnumber INT NOT NULL,
+Plocation VARCHAR(15),
+Dnum INT NOT NULL,
+PRIMARY KEY (Pnumber),
+UNIQUE (Pname),
+FOREIGN KEY (Dnum) REFERENCES DEPARTMENT(Dnumber) );
+
+
+CREATE TABLE WORKS_ON
+( Essn CHAR(9) NOT NULL,
+Pno INT NOT NULL,
+Hours DECIMAL(3,1) NOT NULL,
+PRIMARY KEY (Essn, Pno),
+FOREIGN KEY (Essn) REFERENCES EMPLOYEE(Ssn),
+FOREIGN KEY (Pno) REFERENCES PROJECT(Pnumber) );
+
+
+CREATE TABLE DEPENDENT
+( Essn CHAR(9) NOT NULL,
+Dependent_name VARCHAR(15) NOT NULL,
+Sex CHAR,
+Bdate DATE,
+Relationship VARCHAR(8),
+PRIMARY KEY (Essn, Dependent_name),
+FOREIGN KEY (Essn) REFERENCES EMPLOYEE(Ssn) );
+
+
+Insert into employee (Fname,Minit,Lname,Ssn,Bdate,Address,Sex,Salary)values('James', 'E', 'Borg',888665555, '10-nov-47', '450 Stone, Houston, TX', 'M', 55000);
+Insert into employee (Fname,Minit,Lname,Ssn,Bdate,Address,Sex,Salary,Super_ssn) values ('Franklin', 'T', 'Wong', 333445555 , '10-nov-47', '638 Voss, Houston,TX', 'M', 40000, 888665555);
+Insert into employee (Fname,Minit,Lname,Ssn,Bdate,Address,Sex,Salary,Super_ssn) values ('Jennifer', 'S', 'Wallace',987654321, '10-nov-47', '291 Berry Bellaire, TX', 'F', 43000, 888665555);
+Insert into employee (Fname,Minit,Lname,Ssn,Bdate,Address,Sex,Salary,Super_ssn) values ('Alicia', 'J', 'Zelaya', 999887777, '10-nov-47', '3321 Castle, Spring, TX', 'F', 25000, 987654321);
+
+Insert into employee (Fname,Minit,Lname,Ssn,Bdate,Address,Sex,Salary,Super_ssn) values ('Ramesh', 'K', 'Narayan',666884444, '10-nov-47', '975 Fireoak,Humble, TX', 'M', 38000, 333445555);
+Insert into employee (Fname,Minit,Lname,Ssn,Bdate,Address,Sex,Salary,Super_ssn) values ('Joyce', 'A', 'English',453453453, '10-nov-47', '5631Rice, Houston, TX', 'F', 25000, 333445555);
+Insert into employee (Fname,Minit,Lname,Ssn,Bdate,Address,Sex,Salary,Super_ssn) values ('Ahmad', 'V', 'Jabbar',987987987, '10-nov-47', '980 Dallas, Houston, TX', 'M', 25000, 987654321);
+
+Insert into employee (Fname,Minit,Lname,Ssn,Bdate,Address,Sex,Salary,Super_ssn) values ('John', 'B', 'Smith',123456789, '10-nov-47', '731 Fondren, Houston, TX', 'M', 30000, 333445555);
+
+
+Insert into DEPARTMENT values('Research',5,333445555,'10-nov-47');
+Insert into DEPARTMENT values('Administration',4,987654321,'10-nov-47');
+Insert into DEPARTMENT values('Headquarters',1,888665555,'10-nov-47');
+
+update employee set Dno=5 where ssn=123456789;
+update employee set Dno=1 where ssn=888665555;
+update employee set Dno=4 where ssn=999887777;
+update employee set Dno=4 where ssn=987654321;
+update employee set Dno=5 where ssn=666884444;
+update employee set Dno=5 where ssn=453453453;
+update employee set Dno=4 where ssn=987987987;
+update employee set Dno=5 where ssn=333445555;
+
+
+Insert into DEPT_LOCATIONS values(1,'Houston');
+Insert into DEPT_LOCATIONS values(4,'Stafford');
+Insert into DEPT_LOCATIONS values(5,'Bellaire');
+Insert into DEPT_LOCATIONS values(5,'Sugarland');
+Insert into DEPT_LOCATIONS values(5,'Houston');
+
+
+INSERT INTO PROJECT VALUES('ProductX',1, 'Bellaire',5);
+INSERT INTO PROJECT VALUES('ProductY',2, 'Sugarland',5);
+INSERT INTO PROJECT VALUES('ProductZ',3, 'Houston',5);
+INSERT INTO PROJECT VALUES('Computerization',10, 'Stafford',4);
+INSERT INTO PROJECT VALUES('Reorganization',20, 'Houston',1);
+INSERT INTO PROJECT VALUES('Newbenefits',30, 'Stafford',4);
+
+
+INSERT INTO WORKS_ON VALUES(123456789,1,32.5);
+INSERT INTO WORKS_ON VALUES(123456789,2,7.5);
+INSERT INTO WORKS_ON VALUES(666884444,3,40.0);
+INSERT INTO WORKS_ON VALUES(453453453,1,20.0);
+INSERT INTO WORKS_ON VALUES(453453453,2,20.0);
+INSERT INTO WORKS_ON VALUES(333445555,2,10.0);
+INSERT INTO WORKS_ON VALUES(333445555,3,10.0);
+INSERT INTO WORKS_ON VALUES(333445555,10,10.0);
+INSERT INTO WORKS_ON VALUES(333445555,20,10.0);
+INSERT INTO WORKS_ON VALUES(999887777,30,30.0);
+INSERT INTO WORKS_ON VALUES(999887777,10,10.0);
+INSERT INTO WORKS_ON VALUES(987987987,10,35.0);
+INSERT INTO WORKS_ON VALUES(987987987,30,5.0);
+INSERT INTO WORKS_ON VALUES(987654321,30,20.0);
+INSERT INTO WORKS_ON VALUES(987654321,20,15.0);
+INSERT INTO WORKS_ON VALUES(888665555,20,3.0);
+
+
+
+
+
+
+
+
+
+
+
+
+
+select fname,lname from employee e where e.ssn in(select essn from dependent d where e.fname=d.dependent_name and e.sex=d.sex);
+
+select fname,lname from employee e where exists(select * from dependent where
+e.sex=d.sex and
+e.fname=d.dependent_name and
+e.ssn=d.ssn);
+
+q2. retreive names of employees who have no dependents
+
+select fname,lname from employee where ssn not in(select essn from dependent);
+
+select fname,lname from employee where not exists (select * from dependent where ssn=essn);
+
+q3. list names of managers who have atleast one dependent
+
+select fname,lname from employee where ssn in(select mgr_ssn from DEPARTMENT where mgr_ssn in(select essn from dependent));
+
+-- select fname,lname from employee where exists(select * from DEPARTMENT where mgr_ssn=essn);
+
+q4. retreive names of all employees who work in research DEPARTMENT
+
+select fname,lname,address from EMPLOYEE,DEPARTMENT where Dname=research;

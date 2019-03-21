@@ -1,0 +1,7 @@
+Insert into dependent values('333445555' , 'Alice' , 'F' , '10-nov-47' , 'Daughter' );
+Insert into dependent values('333445555' , 'Theodore' , 'M' , '10-nov-47' , 'Son' );
+Insert into dependent values('333445555' , 'Joy' , 'F' , '10-nov-47' , 'Spouse' );
+Insert into dependent values('987654321' , 'Abner' , 'M' , '10-nov-47' , 'Spouse' );
+Insert into dependent values('123456789' , 'Michael' , 'M' , '10-nov-47' , 'Son' );
+Insert into dependent values('123456789' , 'Alice' , 'F' , '10-nov-47' , 'Daughter' );
+Insert into dependent values('123456789' , 'Elizabeth' , 'F' , '10-nov-47' , 'Spouse' );
