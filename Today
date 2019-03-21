@@ -168,6 +168,29 @@ FNAME           LNAME
 Franklin        Wong
 Jennifer        Wallace
 
-q5. for eah emoyee etreive emploees fname and lname of immediate supervisor
+q5. for each employee retreive employees fname and lname of immediate supervisor
 
-select e.fname,e.lname select m.fname,m.lname from employee e, employee  e.ssn=.super_ssn;
+select e.fname manager_fname,e.lname manager_lname, m.fname,m.lname from employee e.employee m where e.ssn=m.super_ssn;
+
+q6. show the resulting salaries if every employee working on project Xproduct is given a 10% increment
+
+select fname,lname, salary as increment salary from employee where essn in(select essn from works on where pno in lselect Pnumber from project where pname='ProductX');
+
+q7. make list of all project numbers for projects that involve an employee whose last name is smith either as a worker or as a manager of DEPARTMENT
+
+(select distinct pno from PROJECT,DEPARTMENT,EMPLOYEE where pnumber=pno and essn=ssn and lname='Smith') union (select distinct p no from project,employee where pnumber=pno and essn=ssn and lname='Smith');
+
+q8. list ssn of all employees who work the same (project,hours) combination same project having employee ssnas 123456789
+
+select ssn from WORKS_ON where (pno,hours) in(select pno,hours from works on where essn=123456789);
+
+q9. find sum of salaries of all employees of research department as well as the max salary,min and avg salary in the department
+
+select sum(salary),max(salary),min(salary),avg(salary) from (employee join department on pnumber=pno where pname='Research');
+
+q10. retreive the names of all employees who have two or more dependents
+
+select fname,lname from EMPLOYEE where (select * from dependent where ssn=essn)>=2;
+
+q11. for each project, retreive project number, project name and no. of emploees who work for the project
+select pnumber,pname,count * fro, project,works on where pnumber pno group by pnumber,pname; 
